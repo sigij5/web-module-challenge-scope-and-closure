@@ -42,6 +42,9 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+
+Closures are a js property in which a child function may reach outside of it's scope for the value of a variable that has already been terminated.
+
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -63,8 +66,16 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+Closure is used within the return function of the personalDice function.  the console.log pulls the name variable from the parent function's parameters, without having the name defined within the return function's brackets.
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+The name value of dansRoll, as well as the string, is always the same.  While the newRoll value can changes.
+
 c. What is the lexical scope of `newRoll`? 
+
+newRoll has a scope that can reach to the outer function of personalDice for variables.
 
 ### Task 3 - Stretch Goals
 
