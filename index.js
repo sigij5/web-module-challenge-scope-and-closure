@@ -28,9 +28,15 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * counter1 is a callback function that calls counterMaker, and keeps changes the count specifically for the counter1 variable.  While counter2 changes the global count variable.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * counter2 uses a closure becuase it reaches outside of it's function-scope for the value of count.
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * 
+ * counter1 would be preferable if you want to keep a separate count for different teams on a scoreboard, while counter2 will just keep a main count for counting money in your wallet.
  *
 */
 
@@ -52,15 +58,17 @@ function counter2() {
 }
 
 
+
 /* Task 2: inning() 
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  return Math.floor(Math.random() * 2)
 }
+
+// console.log(inning());
+
 
 /* Task 3: finalScore()
 
@@ -76,11 +84,19 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
 
-  /*Code Here*/
+function finalScore(cb, number){
+  let score = {'Home': 0, 'Away':0}
 
+  for (let i=0; i<number; i++){
+    score.Home = score.Home + cb();
+    score.Away = score.Away + cb();
+  }
+
+  return score;
 }
+
+// console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +119,25 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(cb, number) {
+  let score = {'Home': 0, 'Away': 0}
+
+  for (let i=1; i<=number; i++){
+    let ordinal = function(){
+      if (i === 1){
+        return 'st'
+      }else if (i === 2){
+        return 'nd'
+      }else if (i === 3){
+        return 'rd'
+      }else return 'th'
+    }
+
+    score.Home = score.Home + cb();
+    score.Away = score.Away + cb();
+    console.log(`${i}${ordinal()} inning: ${score.Home} - ${score.Away}`)
+  }
+
 }
 
-
+console.log(scoreboard(inning, 9));
